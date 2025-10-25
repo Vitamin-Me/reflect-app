@@ -1,0 +1,8 @@
+<div class="bg-white rounded-xl shadow p-4 hover:shadow-lg transition">
+  <p class="text-gray-600 text-sm mb-2">
+    <%= truncate(entry.content, length: 100) %>
+  </p>
+  <p class="text-gray-400 text-xs">
+    <%= entry.date.strftime("%B %d, %Y") %>
+  </p>
+</div>
