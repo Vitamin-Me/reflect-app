@@ -17,12 +17,12 @@ class EntriesController < ApplicationController
   require 'net/http'
   require 'json'
 
-  def current_verse
-    # A short list of verses to rotate daily (you can expand this!)
-    verses = ["John 1:14", "Romans 8:28", "Psalm 23:1", "Proverbs 3:5", "Isaiah 40:31"]
-    reference = verses[Date.today.yday % verses.size]  # cycles daily
+def current_verse
+  verses = ["John 1:14", "Romans 8:28", "Psalm 23:1", "Proverbs 3:5", "Isaiah 40:31"]
+  reference = verses[Date.today.yday % verses.size]
 
-    uri = URI("https://bible-api.com/#{ERB::Util.url_encode("Romans 8:28")}")
+  begin
+    uri = URI("https://bible-api.com/#{ERB::Util.url_encode(reference)}")
     response = Net::HTTP.get(uri)
     data = JSON.parse(response)
 
@@ -31,7 +31,16 @@ class EntriesController < ApplicationController
       text: data["text"],
       translation: data["translation_name"]
     }
+  rescue StandardError => e
+    Rails.logger.error("Bible API failed: #{e.message}")
+    # fallback so app never crashes
+    {
+      reference: reference,
+      text: "Unable to load verse text at this time.",
+      translation: "Unknown"
+    }
   end
+end
   helper_method :current_verse
 
   def current_verse_text
