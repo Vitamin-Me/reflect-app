@@ -50,8 +50,8 @@
     <%= link_to entry_path(entry),
       class: "block bg-[#1B3C53] rounded-3xl p-6 text-center shadow-md hover:shadow-lg transition transform hover:-translate-y-1 hover:bg-[#234C6A]" do %>
 
-      <p class="text-[#FFF7DD] font-mono text-lg mb-3">
-        <%= entry.title %>
+      <p class="text-[#FFF7DD] font-mono text-lg mb-3 truncate">
+        <%= entry.title.is_a?(Hash) ? entry.title["reference"] || entry.title[:reference] : entry.title %>
       </p>
       <p class="text-[#AFC1C1] text-sm">
         <%= entry.created_at.strftime("%B %d, %Y at %I:%M %p") %>

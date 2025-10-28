@@ -50,7 +50,7 @@ end
   
   def create
     @entry = current_user.entries.new(entry_params)
-    @entry.title = current_verse
+    @entry.title = current_verse[:reference] 
     @entry.verse_text = current_verse_text
     @entry.date = Date.today  # automatically set today’s date
     if @entry.save
