@@ -25,3 +25,7 @@ production:
   database: reflect_app_production
   username: <%= ENV["PGUSER"] %>
   password: <%= ENV["PGPASSWORD"] %>
+
+cable:
+  <<: *default
+  database: reflect_app_cable
