@@ -1,0 +1,40 @@
+<% context = verse_context(current_verse[:reference]) %>
+
+<div class="bg-[#1B3C53] rounded-3xl p-10">
+  <h1 class="text-6xl font-bold font-sans text-[#FFF7DD] pb-10">
+    <%= current_verse[:reference] %>
+  </h1>
+  <p class="text-2xl font-mono text-[#FFF7DD] pb-10">
+    <%= current_verse[:text] %>
+  </p>
+</div>
+
+<div class="text-center mb-5 mt-5">
+  <button
+    type="button"
+    id="contextButton"
+    class="text-[#FFF7DD] font-mono underline hover:text-yellow-200 transition"
+    onclick="document.getElementById('verseContext').classList.toggle('hidden')"
+  >
+    Show Verse Context
+  </button>
+</div>
+
+<div id="verseContext" class="hidden bg-[#234C6A] text-[#FFF7DD] p-6 rounded-3xl mb-8 text-left">
+  <p><strong>Author:</strong> <%= context["author"] %></p>
+  <p><strong>Audience:</strong> <%= context["audience"] %></p>
+  <p><strong>Setting:</strong> <%= context["setting"] %></p>
+</div>
+
+<%= form_with(model: @entry, local: true) do |form| %>
+  <div class="mb-4">
+    <%= form.text_area :content,
+      rows: 1,
+      oninput: "this.style.height = ''; this.style.height = this.scrollHeight + 'px'",
+      class: "bg-[#234C6A] font-mono text-[#FFF7DD] w-full p-10 rounded-3xl border-gray-300 focus:outline-none resize-none overflow-hidden transition-[height] duration-200 ease-out",
+      placeholder: "Write your thoughts here..." %>
+  </div>
+
+  <%= form.submit "Post",
+        class: "bg-[#1B3C53] text-[#FFF7DD]  mt-5 font-mono font-bold py-2 px-4 rounded-3xl hover:bg-blue-900 transition" %>
+<% end %>

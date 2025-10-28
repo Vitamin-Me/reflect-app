@@ -1,0 +1,55 @@
+<h1 class="text-3xl font-bold text-[#FFF7DD] mb-2">Find Friends</h1>
+
+
+<div class="font-mono text-white pb-5 underline">
+  <%= link_to "Back", entries_path %>
+</div>
+
+
+<% if flash[:notice] %>
+  <p class="text-green-400 font-mono mb-4"><%= flash[:notice] %></p>
+<% elsif flash[:alert] %>
+  <p class="text-red-400 font-mono mb-4"><%= flash[:alert] %></p>
+<% end %>
+
+<%= form_with url: friends_path, method: :get, local: true, class: "mb-6" do %>
+  <div class="flex gap-4 justify-center">
+    <%= text_field_tag :query, params[:query],
+          placeholder: "Search by username...",
+          class: "bg-[#234C6A] text-[#FFF7DD] p-3 rounded-3xl focus:outline-none w-1/2" %>
+    <%= submit_tag "Search",
+          class: "bg-[#1B3C53] text-[#FFF7DD] px-6 py-3 rounded-3xl hover:bg-[#234C6A] transition" %>
+  </div>
+<% end %>
+
+<% if @results.any? %>
+  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mt-6">
+    <% @results.each do |user| %>
+      <div class="bg-[#1B3C53] p-4 rounded-3xl text-[#FFF7DD] text-center">
+        <p class="font-mono text-xl mb-2"><%= user.username %></p>
+        <%= button_to "Add Friend", friendships_path(friend_id: user.id),
+              method: :post,
+              data: { turbo: false },
+              class: "bg-[#234C6A] px-4 py-2 rounded-3xl hover:bg-[#2B4D6A] transition" %>
+      </div>
+    <% end %>
+  </div>
+<% elsif params[:query].present? %>
+  <p class="text-[#FFF7DD] mt-4 text-center">No users found.</p>
+<% end %>
+
+<hr class="my-10 border-gray-600 opacity-40">
+
+<h2 class="text-2xl font-bold text-[#FFF7DD] mb-4 text-center">Your Friends</h2>
+
+<% if @friends.any? %>
+  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <% @friends.each do |friend| %>
+      <div class="bg-[#1B3C53] p-4 rounded-3xl text-[#FFF7DD] text-center">
+        <p class="font-mono text-xl mb-2"><%= friend.username %></p>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="text-[#FFF7DD] text-center mt-4">You don’t have any friends yet. Search above to add some!</p>
+<% end %>

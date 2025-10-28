@@ -7,6 +7,7 @@ class EntriesController < ApplicationController
   def index
     @entry = current_user.entries.new
     @entries = current_user.entries.order(created_at: :desc)
+    @friends_entries = friends_entries if posted_today
   end
 
   def new
@@ -16,6 +17,19 @@ class EntriesController < ApplicationController
 
   require 'net/http'
   require 'json'
+
+def friends_entries
+  friend_ids = current_user.friends.pluck(:id)
+  Entry.where(user_id: friend_ids)
+       .where("created_at >= ?", Time.zone.now.beginning_of_day)
+       .where.not(user_id: current_user.id)
+       .order(created_at: :desc)
+end
+
+def posted_today
+  current_user.entries.where("created_at >= ?", Time.zone.now.beginning_of_day).exists?
+end
+helper_method :posted_today
 
 def current_verse
   verses = ["John 1:14", "Romans 8:28", "Psalm 23:1", "Proverbs 3:5", "Isaiah 40:31"]
