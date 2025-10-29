@@ -16,10 +16,6 @@ production:
   <<: *default
   database: reflect_app_production
 
-  cable:
-    <<: *default
-    database: reflect_app_production
-
-  cache:
-    <<: *default
-    database: reflect_app_production
+cable:
+  <<: *default
+  database: reflect_app_production
