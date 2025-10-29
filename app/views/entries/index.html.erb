@@ -16,8 +16,8 @@
       class: "block bg-[#1B3C53] rounded-3xl p-6 text-center shadow-md hover:shadow-lg transition transform hover:-translate-y-1 hover:bg-[#234C6A]" do %>
 
       <p class="text-[#FFF7DD] font-mono text-lg mb-3 truncate">
-        <%= entry.title.is_a?(Hash) ? entry.title["reference"] || entry.title[:reference] : entry.title %>
-        <%= debug(entry.title) if Rails.env.development? %>
+          <% title = entry.title.is_a?(String) ? JSON.parse(entry.title) rescue entry.title : entry.title %>
+          <%= title["reference"] || title[:reference] || title %>
       </p>
       <p class="text-[#AFC1C1] text-sm">
         <%= entry.created_at.strftime("%B %d, %Y at %I:%M %p") %>
