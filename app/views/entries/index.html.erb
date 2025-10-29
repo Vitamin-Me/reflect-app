@@ -17,6 +17,7 @@
 
       <p class="text-[#FFF7DD] font-mono text-lg mb-3 truncate">
         <%= entry.title.is_a?(Hash) ? entry.title["reference"] || entry.title[:reference] : entry.title %>
+        <%= debug(entry.title) if Rails.env.development? %>
       </p>
       <p class="text-[#AFC1C1] text-sm">
         <%= entry.created_at.strftime("%B %d, %Y at %I:%M %p") %>
