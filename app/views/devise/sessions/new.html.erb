@@ -1,32 +1,38 @@
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field text-white font-mono text-3xl">
-    <%= f.label :email %><br />
-    <%= f.email_field :email,
-     autofocus: true, 
-     autocomplete: "email",
-     class: "bg-[#456882] rounded-3xl focus:outline-none pl-5 pr-5 text-base w-full text-center"
-     %>
-  </div>
+<h1 class="text-8xl font-bold mt-10 mb-10 text-[#FFF7DD] text-center">Reflect</h1>
 
-  <div class="field text-white font-mono text-3xl pt-5">
-    <%= f.label :password %><br />
-    <%= f.password_field :password,
-     autocomplete: "current-password", 
-     class: "bg-[#456882] rounded-3xl focus:outline-none pl-5 pr-5 text-base w-full text-center" 
-    %>
-  </div>
+<div class="px-6 sm:px-10 max-w-md mx-auto">
+  <p class="mb-6 text-2xl"> Sign in </p>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="field pt-3 font-mono">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field text-white font-mono text-3xl">
+      <%= f.email_field :email,
+      autofocus: true, 
+      autocomplete: "email",
+      placeholder: "Email address *",
+      class: "bg-[#456882] rounded-md focus:outline-none py-4 pl-5 pr-5 text-base w-full placeholder:text-left"
+      %>
     </div>
+
+    <div class="field text-white font-mono text-3xl pt-5">
+      <%= f.password_field :password,
+      autocomplete: "current-password", 
+      placeholder: "Password *",
+      class: "bg-[#456882] rounded-md focus:outline-none py-4 pl-5 pr-5 text-base w-full placeholder:text-left" 
+      %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field pt-3 text-left text-lg flex items-center">
+        <%= f.check_box :remember_me, class: "scale-125 accent-[#456882] mr-2" %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+
+  <div class="actions mt-3">
+    <%= f.submit "SIGN IN",
+          class: "cursor-pointer bg-[#1B3C53] text-gray-300 font-mono font-bold py-3 px-6 w-full rounded-md hover:bg-[#234C6A] transition" %>
+  </div>
   <% end %>
 
-<div class="actions mt-3">
-  <%= f.submit "Log in",
-        class: "cursor-pointer bg-[#1B3C53] text-gray-300 font-mono font-bold py-3 px-6 rounded-3xl hover:bg-[#234C6A] transition" %>
+  <%= render "devise/shared/links" %>
 </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
