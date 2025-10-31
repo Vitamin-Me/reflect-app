@@ -1,34 +1,44 @@
-<h2>Sign up</h2>
+<h1 class="text-7xl font-bold mt-10 mb-10 text-[#FFF7DD] text-center">ThruWord</h1>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username,
-          class: "bg-[#456882] rounded-3xl focus:outline-none pl-5 text-base w-md" %>
-  </div>
+<p class="mb-6 text-2xl"> Sign up </p>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+<div class="px-6 sm:px-10 max-w-md mx-auto">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+    <div class="field">
+      <%= f.text_field :username,
+            placeholder: "Username *",
+            class: "bg-[#456882] text-white rounded-md focus:outline-none py-4 pl-5 pr-5 mb-4 text-base w-full placeholder:text-left" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+    <div class="field">
+      <%= f.email_field :email,
+          placeholder: "Email *",
+          class: "bg-[#456882] text-white rounded-md focus:outline-none py-4 pl-5 pr-5 text-base w-full placeholder:text-left",
+          autofocus: true, autocomplete: "email" %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <div class="field mt-4">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password,
+        placeholder: "Password *",
+        class: "bg-[#456882] text-white rounded-md focus:outline-none py-4 pl-5 pr-5 mb-4 text-base w-full placeholder:text-left",
+        autocomplete: "new-password" %>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+    <div class="field">
+      <%= f.password_field :password_confirmation,
+        placeholder: "Password Confirmation*",
+        class: "bg-[#456882] text-white rounded-md focus:outline-none py-4 pl-5 pr-5 mb-4 text-base w-full placeholder:text-left",
+        autocomplete: "new-password" %>
+    </div>
 
-<%= render "devise/shared/links" %>
+    <div class="actions">
+      <%= f.submit "Sign up", 
+        class: "cursor-pointer bg-[#1B3C53] text-gray-300 font-mono font-bold py-3 px-6 w-full rounded-md hover:bg-[#234C6A] transition" %>
+    </div>
+  <% end %>
+</div>
