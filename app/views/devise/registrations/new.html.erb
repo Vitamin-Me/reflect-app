@@ -40,5 +40,11 @@
       <%= f.submit "Sign up", 
         class: "cursor-pointer bg-[#1B3C53] text-gray-300 font-mono font-bold py-3 px-6 w-full rounded-md hover:bg-[#234C6A] transition" %>
     </div>
+
+    <%- if controller_name != 'sessions' %>
+      <%= link_to "Log in", new_session_path(resource_name),
+          class: "cursor-pointer bg-[#1B3C53] text-gray-300 font-mono font-bold py-3 my-3 px-6 rounded-md hover:bg-[#234C6A] transition block text-center w-full" %>
+      <% end %>
+
   <% end %>
 </div>
